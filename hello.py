@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask("MyApp")
 
@@ -10,5 +10,17 @@ def hello():
 @app.route("/idontexist")
 def idontexist():
 		return "I do exist now!"
+
+@app.route("/<name>")
+def hello_someone(name):
+	return render_template("hello.html", name=name.title())
+
+@app.route("/signup", methods=["POST"])
+def sign_up():
+	form_data = request.form
+	print form_data["email"]
+	return "All OK"
+
+	#remember indentation or it wont work!
 
 app.run(debug=True)
